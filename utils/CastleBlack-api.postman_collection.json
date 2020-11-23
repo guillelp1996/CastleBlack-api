@@ -1,0 +1,424 @@
+{
+	"info": {
+		"_postman_id": "fc7ac58d-ac32-4e83-872c-9430fc5d57b2",
+		"name": "CastleBlack-api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "list all players",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1a18d57f-1a6a-42d3-a8ba-48fad89728aa",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"check response json with source data\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.eql([\r",
+							"    {\r",
+							"        \"id\": 1,\r",
+							"        \"name\": \"Jon Snow\",\r",
+							"        \"age\": 23,\r",
+							"        \"health\": 100,\r",
+							"        \"bag\": [\r",
+							"            1\r",
+							"        ]\r",
+							"    },\r",
+							"    {\r",
+							"        \"id\": 2,\r",
+							"        \"name\": \"Littlefinger\",\r",
+							"        \"age\": 35,\r",
+							"        \"health\": 100,\r",
+							"        \"bag\": [\r",
+							"            2\r",
+							"        ]\r",
+							"    },\r",
+							"    {\r",
+							"        \"id\": 3,\r",
+							"        \"name\": \"Daenerys Targaryen\",\r",
+							"        \"age\": 20,\r",
+							"        \"health\": 100,\r",
+							"        \"bag\": [\r",
+							"            3\r",
+							"        ]\r",
+							"    },\r",
+							"    {\r",
+							"        \"id\": 4,\r",
+							"        \"name\": \"Samwell Tarly\",\r",
+							"        \"age\": 18,\r",
+							"        \"health\": 100,\r",
+							"        \"bag\": [\r",
+							"            4\r",
+							"        ]\r",
+							"    }\r",
+							"]);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/players",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"players"
+					]
+				},
+				"description": "here we list all players "
+			},
+			"response": []
+		},
+		{
+			"name": "get player by id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4cb0ee3c-b3f3-493a-bd07-7165738822f3",
+						"exec": [
+							"pm.test('response with status 200', ()=>{\r",
+							"    pm.response.to.have.status(200);\r",
+							"})\r",
+							"\r",
+							"pm.test(\"player with id 3\", function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(jsonData.id).to.eql(3);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\":3\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/player",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"player"
+					]
+				},
+				"description": "show only a player by id"
+			},
+			"response": []
+		},
+		{
+			"name": "add new player",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5b7dce29-bffd-41d2-b229-8121b3f3a4a2",
+						"exec": [
+							"pm.test(\"name Tyrion Lannister age 36 is add \", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.name).to.eql(\"Tyrion Lannister\");\r",
+							"    pm.expect(jsonData.age).to.eql(36);\r",
+							"});\r",
+							"\r",
+							"pm\r",
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Tyrion Lannister\",\r\n    \"age\": 36\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/addPlayer",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"addPlayer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "arm a player with a weapon ",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\":1,\r\n    \"arm\": 4\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/armPlayer",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"armPlayer"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "1",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "change health value beteewn 0-100",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\":4,\r\n    \"health\": 0\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/health",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"health"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add new weapon ",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"value\": -20,\r\n    \"name\": \"stick\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/object",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"object"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "list all objects ",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/objects",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"objects"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get a object by id",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"id\": 1}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/object",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"object"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "change object value ",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\":1,\r\n    \"value\": -100\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/object",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"object"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete object by id",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\":1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/object",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"object"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
